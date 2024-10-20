@@ -107,6 +107,7 @@ longbow annotate -m mas_16+sc_10x3p m84014_240128_083549_s3.hifi_reads.bcM0003.b
 
 **Truncated HG002_10x5p output (CPUs = 48, MEM = 200G):**
 
+```bash
 Progress: 100%|███████████████████████████████████████████████████████████████████████████████████| 9993/9993 [03:24<00:00, 48.76 read/s]
 [INFO 2024-10-19 15:49:54 annotate] Annotated 9985 reads with 1268020 total sections.
 [INFO 2024-10-19 15:49:54 annotate] Done. Elapsed time: 205.42s. Overall processing rate: 48.61 reads/s.
@@ -127,6 +128,7 @@ Progress: 100%|█████████████████████�
 [INFO 2024-10-19 15:49:54  extract] Total # Segments Extracted: 154410
 [INFO 2024-10-19 15:49:54  extract] Total # Segments Skipped: 7
 [INFO 2024-10-19 15:49:54  extract] # Segments extracted per read: 1.00
+```
 
 BLAST CONFIRMATION
 
