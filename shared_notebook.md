@@ -2,7 +2,7 @@ Agenda for meeting on 19th October:
 
 1) ~~Set up the project github tomorrow; update the lab notebook as we discuss.~~
 
-2) ~~Go through Longbow (I'll explain what exists) and various models; either try everything or try something. Should be 20 total options, we can figure out which one is right. ~~
+2) ~~Go through Longbow (I'll explain what exists) and various models; either try everything or try something. Should be 20 total options, we can figure out which one is right.~~
 
 What the paper uses is 
 DATA-MAS-Revio-PBMC-2     : MAS-Seq kit, Revio, PBMC, 10x 3' kit
