@@ -19,9 +19,9 @@ We can compare our data with the bam from the segmented reads folder.
 
 # WE ARE RUNNING ON THE COMPLETE DATASET
 
-What we do need to read is mas-seq paper methods.
+> What we do need to read is MAS-Seq paper methods.
 
-**The dataset and results on the shayal data use smrt-link we can check if longbow can recreate that- new goal.**
+**The dataset and results on the website data (https://downloads.pacbcloud.com/public/dataset/MAS-Seq/) use smrt-link we can check if longbow can recreate that- new goal.**
 
 3) ~~Create a shorter dataset (to find out if longbow is actually working as intended using samtools as Justin described) to run to completion.~~
 
