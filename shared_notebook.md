@@ -7,7 +7,7 @@ Agenda for meeting on 19th October:
 What the paper uses is 
 DATA-MAS-Revio-PBMC-2     : MAS-Seq kit, Revio, PBMC, 10x 3' kit
 
-Doesn't have circular consensus sequence (ccs)? I think we can stick with what we're using : Ask jason. I don't think the paper is good; nanoranger too.
+Doesn't have circular consensus sequence (ccs)? I think we can stick with what we're using : Ask jason. I don't think nanoranger would be good too.
 
 |Dataset|Suggested model|What we refer to this data as|
 | ---- | ---- | ---|
@@ -17,11 +17,11 @@ Doesn't have circular consensus sequence (ccs)? I think we can stick with what w
 
 We can compare our data with the bam from the segmented reads folder.
 
-# WE ARE RUNNING ON THE COMPLETE DATASET
+ **WE ARE RUNNING ON THE COMPLETE DATASET**
 
 > What we do need to read is MAS-Seq paper methods.
 
-**The dataset and results on the website data (https://downloads.pacbcloud.com/public/dataset/MAS-Seq/) use smrt-link we can check if longbow can recreate that- new goal.**
+**The dataset and results on the website data (https://downloads.pacbcloud.com/public/dataset/MAS-Seq/) use skera we can check if longbow can recreate that- new goal.**
 
 3) ~~Create a shorter dataset (to find out if longbow is actually working as intended using samtools as Justin described) to run to completion.~~
 
@@ -56,16 +56,19 @@ chmod the bash scripts before running them
 
 Does rerunning get rid of the error? still not sure
 
+We've found that rerunning it causes nothing to be written into the file.
+We should always output the data into a new file; not a pre-existing file otherwise it leads to an error.
+
 # Samtools to make smaller datasets
 
-samtools is in bgmp_star
+samtools is in bgmp_star and in the singularity image.
 
-conda activate bgmp_star
+conda activate bgmp_star / singularity shell lr-longbow_0.6.14.sif
 
 ## Actual command
 
 ```
-samtools view -h  m84014_240128_083549_s3.hifi_reads.bcM0003.bam | head -10000 | samtools view -bS > truncated_PBMC_10x3p.bam 
+samtools view -h  <full-file> | head -10000 | samtools view -bS > truncated_<file>.bam 
 ```
 
 to view truncated file:
@@ -84,8 +87,9 @@ samtools index <truncated bam file-name>
 
 REMEMBER index files (.bai) created by SAMtools can be used, we don't need to use the .pbi files from PacBio
 
-Then, (may not?) need to rename .pbi file so longbow only recognizes our new .bai index file.
+Then, we don't even need to rename .bai to .pbi file because longbow still recognizes it.
 
+For later, if we need to use this we can use SMRTlink instead [as described here](https://www.pacb.com/wp-content/uploads/SMRT_Tools_Reference_Guide_v700.pdf) using the ```pbindex``` tool.
 
 # Running on shell in interactive node 
 
@@ -130,10 +134,51 @@ Progress: 100%|█████████████████████�
 [INFO 2024-10-19 15:49:54  extract] # Segments extracted per read: 1.00
 ```
 
-BLAST CONFIRMATION
+
+# BLAST CONFIRMATION
 
 go into output file, 10th column is the sequencene
 
 Copy and go to NCBI Blast
 
+<add images here!>
 
+# Run completed for Varsheni (PBMC 10x3p)
+
+It took 3.29 days for the run to complete. 
+
+[INFO 2024-10-20 03:56:37  segment] Segmented 8717702 reads with 138791391 total segments.
+[INFO 2024-10-20 03:56:37  segment] MAS-seq gain factor: 15.92x
+[INFO 2024-10-20 03:56:37  segment] Done. Elapsed time: 284019.89s.
+[INFO 2024-10-20 03:56:37  extract] Done. Elapsed time: 284020.05s.
+[INFO 2024-10-20 03:56:37  extract] Total # Reads Processed: 137392261
+[INFO 2024-10-20 03:56:37  extract] # Reads Containing Extracted Segments: 137368986/137392261 (99.9831%)
+[INFO 2024-10-20 03:56:37  extract] Total # Segments Extracted: 137368986
+[INFO 2024-10-20 03:56:37  extract] Total # Segments Skipped: 23275
+[INFO 2024-10-20 03:56:37  extract] # Segments extracted per read: 1.00
+
+wget the original segmented files using Skera
+
+```
+wget https://downloads.pacbcloud.com/public/dataset/MAS-Seq/DATA-Revio-Kinnex-PBMC-10x3p/1-Sreads/segmented.bam
+```
+
+Saved as output_skera_PBMC_10x3p.bam
+
+Comparison of Skera run (from website) vs Longbow run
+
+The Skera (as far as I can see) has not been filtered yet in this dataset.
+
+|File name|Size of File|Number of reads|Length of reads range (first 10k)|Matching sequences (first 10k) |Total sequences (first 10k, filtered >78bp)| %match |
+|-|-|-|-|-|-|-|
+|output_PBMC_10x3p.bam|68G|137,368,986|5-3772|9561|9927|96.3%|
+|output_skera_PBMC_10x3p.bam|74G|141,045,827|78-3884|9561|10000|95.6%|
+
+
+Commands used
+
+sed -r '/^.{,78}$/d' sequence_output_PBMC_10x3p.txt | awk '{print
+ length}' | sort -n | uniq -c |  head
+
+
+saved subsetted sequence_output_pbmc file as subset_sequence_output_PBMC_10x3p.txt
