@@ -141,7 +141,9 @@ go into output file, 10th column is the sequencene
 
 Copy and go to NCBI Blast
 
-<add images here!>
+![image](image.png)
+
+It looks good; we can discern up to isoform resolution
 
 # Run completed for Varsheni (PBMC 10x3p)
 
@@ -169,17 +171,22 @@ Comparison of Skera run (from website) vs Longbow run
 
 The Skera (as far as I can see) has not been filtered yet in this dataset.
 
-|File name|Size of File|Number of reads|Length of reads range (first 10k)|Matching sequences (first 10k) |Total sequences (first 10k, filtered >78bp)| %match |
+|File name|Size of File|Number of reads|Length of reads range (10k) |Matching sequences (10k) |Total sequences (10k,filtered >78bp)| %match |
 |-|-|-|-|-|-|-|
 |output_PBMC_10x3p.bam|68G|137,368,986|5-3772|9561|9927|96.3%|
 |output_skera_PBMC_10x3p.bam|74G|141,045,827|78-3884|9561|10000|95.6%|
-
-
 
 ### Commands used
 
 sed -r '/^.{,78}$/d' sequence_output_PBMC_10x3p.txt | awk '{print
  length}' | sort -n | uniq -c |  head
 
+grep -f <longbow output sequence list> <skera output sequence list>
 
-saved subsetted sequence_output_pbmc file as subset_sequence_output_PBMC_10x3p.txt
+###### saved subsetted sequence_output_pbmc file as subset_sequence_output_PBMC_10x3p.txt
+
+
+samtools view  output_skera_PBMC_10x3p.bam | cut -f 10 > skera_sequences.txt
+samtools view  output_PBMC_10x3p.bam | cut -f 10 > longbow_sequences.txt
+grep -f longbow_sequences.txt skera_sequences.txt 
+
