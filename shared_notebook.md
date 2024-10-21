@@ -175,7 +175,8 @@ The Skera (as far as I can see) has not been filtered yet in this dataset.
 |output_skera_PBMC_10x3p.bam|74G|141,045,827|78-3884|9561|10000|95.6%|
 
 
-Commands used
+
+### Commands used
 
 sed -r '/^.{,78}$/d' sequence_output_PBMC_10x3p.txt | awk '{print
  length}' | sort -n | uniq -c |  head
