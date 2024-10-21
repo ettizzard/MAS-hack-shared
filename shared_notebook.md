@@ -149,6 +149,7 @@ It looks good; we can discern up to isoform resolution
 
 It took 3.29 days for the run to complete. 
 
+```
 [INFO 2024-10-20 03:56:37  segment] Segmented 8717702 reads with 138791391 total segments.
 [INFO 2024-10-20 03:56:37  segment] MAS-seq gain factor: 15.92x
 [INFO 2024-10-20 03:56:37  segment] Done. Elapsed time: 284019.89s.
@@ -158,6 +159,7 @@ It took 3.29 days for the run to complete.
 [INFO 2024-10-20 03:56:37  extract] Total # Segments Extracted: 137368986
 [INFO 2024-10-20 03:56:37  extract] Total # Segments Skipped: 23275
 [INFO 2024-10-20 03:56:37  extract] # Segments extracted per read: 1.00
+```
 
 wget the original segmented files using Skera
 
